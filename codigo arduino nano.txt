@@ -1,0 +1,45 @@
+int outputPin= 0;
+
+void setup()
+{
+pinMode(2,OUTPUT);
+pinMode(3,OUTPUT);
+pinMode(4,OUTPUT);
+Serial.begin(9600);
+}
+void loop()
+{
+int rawvoltage= analogRead(outputPin);
+float millivolts= (rawvoltage/1024.0) * 5000;
+float kelvin= (millivolts/10);
+float temp= kelvin - 273.15;
+temp = temp-20;
+Serial.print(temp);Serial.println(" C");
+
+if(temp>=20 && temp<21)
+{
+  digitalWrite(2,HIGH);
+  digitalWrite(3,LOW);
+  digitalWrite(4,LOW);
+}
+else if(temp>=21 && temp<22)
+{
+  digitalWrite(2,HIGH);
+  digitalWrite(3,HIGH);
+  digitalWrite(4,LOW);
+}
+else if(temp>=22)
+{
+  digitalWrite(2,HIGH);
+  digitalWrite(3,HIGH);
+  digitalWrite(4,HIGH);
+}
+else if(temp<20)
+{
+  digitalWrite(2,LOW);
+  digitalWrite(3,LOW);
+  digitalWrite(4,LOW);
+}
+
+delay(100);
+}
